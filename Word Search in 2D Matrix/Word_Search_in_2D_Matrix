@@ -1,0 +1,43 @@
+#This is how we implement using different techniques
+# Technique 1 using zip
+def word_search(matrix, word):
+    # check rows
+    for r in matrix:
+        if word in "".join(r):
+            return True
+
+    # check columns with zip()
+    for c in zip(*matrix):
+        if word in "".join(c):
+            return True
+
+    return False
+
+# Technique 2 using basic line loop
+def word_search(matrix, word):
+    return any(word in "".join(r) for r in matrix) or any(word in "".join(c) for c in zip(*matrix))
+
+# Technique 3 using any 
+def word_search(matrix, word):
+    rows = ["".join(r) for r in matrix]         # all rows as strings
+    cols = ["".join(c) for c in zip(*matrix)]   # all cols as strings
+    return any(word in line for line in rows + cols)
+
+# Technique 4 Without using row , col
+def word_search(matrix, word):
+    return any(word in "".join(r) for r in matrix + list(zip(*matrix)))
+
+# Test Case 
+matrix = [
+ ['F', 'A', 'C', 'I'],
+ ['O', 'B', 'Q', 'P'],
+ ['A', 'N', 'O', 'B'],
+ ['M', 'A', 'S', 'S']
+]
+
+print(word_search(matrix, "FOAM"))  # True
+print(word_search(matrix, "MASS"))  # True
+print(word_search(matrix, "FACE"))  # False
+
+
+
